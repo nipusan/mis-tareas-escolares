@@ -1,0 +1,26 @@
+<mat-card>
+  <h1 *ngIf="(authSvc.user$ | async) as user">
+    Welcome, {{ user.username || 'User' }}.
+  </h1>
+</mat-card>
+
+<mat-card>
+  <mat-grid-list [cols]="colSize" rowHeight="3:1">
+    <mat-grid-tile *ngIf="mode.colSize !== 1 || false" [colspan]="1" [rowspan]="1" [style.background]="'white'">
+    </mat-grid-tile>
+    <mat-grid-tile [colspan]="1" [rowspan]="1" [style.background]="'white'">
+      <form [style.width.%]="100" class="search-form">
+        <mat-form-field [style.width.%]="95" class="search-full-width">
+          <mat-label>Número documento</mat-label>
+          <input type="number" matInput placeholder="100000000">
+          <button *ngIf="mode.colSize === 1 || false" matSuffix mat-fab color="primary" aria-label="Search">
+            <mat-icon matSuffix>search</mat-icon>
+          </button>
+        </mat-form-field>
+      </form>
+    </mat-grid-tile>
+    <mat-grid-tile [colspan]="1" [rowspan]="1" [style.background]="'white'"></mat-grid-tile>
+  </mat-grid-list>
+
+
+</mat-card>
