@@ -13,5 +13,6 @@ export interface UserResponse extends User {
   message: string;
   token: string;
   userId: number;
+  names: string;
   role: Roles;
 }

@@ -4,6 +4,7 @@ import { AuthService } from '@auth/auth.service';
 import { MediaChange, MediaObserver } from '@angular/flex-layout';
 import { Subscription } from 'rxjs';
 import { filter, map } from 'rxjs/operators';
+import { ActivatedRoute } from '@angular/router';
 
 
 
@@ -25,11 +26,19 @@ export class HomeComponent implements OnInit, OnDestroy {
   modes: ModeType[];
   mode: ModeType;
 
+  search: number;
+
 
   public colSize = 3;
   public isMobile: boolean = false;
 
-  constructor(public authSvc: AuthService, breakpointObserver: BreakpointObserver, public mediaObserver: MediaObserver) {
+  constructor(public authSvc: AuthService, breakpointObserver: BreakpointObserver, public mediaObserver: MediaObserver, private route: ActivatedRoute) {
+
+    console.log('Called Constructor');
+    this.route.queryParams.subscribe(params => {
+        this.search = params['search'];
+    });
+
     breakpointObserver.observe([
       Breakpoints.Handset
     ]).subscribe(result => {

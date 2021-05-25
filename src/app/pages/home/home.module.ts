@@ -1,3 +1,4 @@
+import { SearchActivitiesComponent } from './../admin/components/search-activities/search-activities.component';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
@@ -7,7 +8,7 @@ import { MaterialModule } from '@app/material.module';
 
 
 @NgModule({
-  declarations: [HomeComponent],
+  declarations: [HomeComponent, SearchActivitiesComponent],
   imports: [
     CommonModule,
     HomeRoutingModule,
