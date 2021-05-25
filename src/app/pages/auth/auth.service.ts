@@ -42,7 +42,7 @@ export class AuthService {
   logout(): void {
     localStorage.removeItem('user');
     this.user.next(null);
-    this.router.navigate(['/login']);
+    this.router.navigate(['/']);
   }
 
   private checkToken(): void {

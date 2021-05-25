@@ -14,7 +14,7 @@ import { Subject } from 'rxjs';
 export class SearchActivitiesComponent implements AfterViewInit, OnInit, OnDestroy {
 
   //displayedColumns: string[] = ['id', 'role', 'username', 'names', 'surnames', 'documentType', 'document', 'actions'];
-  displayedColumns: string[] = ['id', 'name', 'content', 'startDate', 'endDate', 'course','state'];
+  displayedColumns: string[] = ['name', 'content', 'startDate', 'endDate', 'course', 'observation', 'state'];
   dataSource = new MatTableDataSource<ActivityStudent>();
 
   @Input() document: number;

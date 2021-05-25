@@ -1,13 +1,12 @@
 
 
-
 <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">
-  <!-- ID Column -->
+  <!--
   <ng-container matColumnDef="id">
     <th id="userId" mat-header-cell *matHeaderCellDef mat-sort-header>No.</th>
     <td mat-cell *matCellDef="let element">{{ element.id }}</td>
   </ng-container>
-
+-->
   <!-- Name Column -->
   <ng-container matColumnDef="name" minWidth="400px">
     <th id="userName" mat-header-cell *matHeaderCellDef mat-sort-header>Name</th>
@@ -38,8 +37,14 @@
     <td mat-cell *matCellDef="let element">{{ element.activity.course.name }}</td>
   </ng-container>
 
+  <!-- observation Column -->
+  <ng-container matColumnDef="observation">
+    <th id="userObservation" mat-header-cell *matHeaderCellDef mat-sort-header>Observation</th>
+    <td mat-cell *matCellDef="let element">{{ element.observation }}</td>
+  </ng-container>
+
   <!-- state Column -->
-  <ng-container matColumnDef="state">
+  <ng-container matColumnDef="state" id="step3">
     <th id="userState" mat-header-cell *matHeaderCellDef mat-sort-header>State</th>
     <td mat-cell *matCellDef="let element">
       <label for="userState" class="label success" *ngIf="element.state">Entregado</label>

@@ -1,3 +1,4 @@
+import { CookieService } from 'ngx-cookie-service';
 import { Breakpoints, BreakpointObserver } from '@angular/cdk/layout';
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { AuthService } from '@auth/auth.service';
@@ -6,7 +7,7 @@ import { Subscription } from 'rxjs';
 import { filter, map } from 'rxjs/operators';
 import { ActivatedRoute } from '@angular/router';
 
-
+import * as introJs from 'intro.js/intro.js';
 
 export interface ModeType {
   colSize: number;
@@ -20,6 +21,8 @@ export interface ModeType {
 })
 export class HomeComponent implements OnInit, OnDestroy {
 
+  introJS = introJs();
+
   mediaSub: Subscription;
   activeMediaQuery: String;
 
@@ -29,14 +32,21 @@ export class HomeComponent implements OnInit, OnDestroy {
   search: number;
 
 
+
   public colSize = 3;
   public isMobile: boolean = false;
 
-  constructor(public authSvc: AuthService, breakpointObserver: BreakpointObserver, public mediaObserver: MediaObserver, private route: ActivatedRoute) {
+  constructor(
+    public authSvc: AuthService,
+    breakpointObserver: BreakpointObserver,
+    public mediaObserver: MediaObserver,
+    private route: ActivatedRoute,
+    private cookieService: CookieService
+  ) {
 
     console.log('Called Constructor');
     this.route.queryParams.subscribe(params => {
-        this.search = params['search'];
+      this.search = params['search'];
     });
 
     breakpointObserver.observe([
@@ -83,10 +93,63 @@ export class HomeComponent implements OnInit, OnDestroy {
           this.mode = this.modes[3];
           this.colSize = this.mode.colSize;
         }
+        this.loadTutorial();
       });
   }
 
   ngOnDestroy(): void {
     this.mediaSub.unsubscribe();
   }
+
+
+  validateCookies(): Promise<any> {
+    return new Promise((resolved, reject) => {
+      setTimeout(() => {
+        let data = this.cookieService.get('1s_ltc');
+        if (data === '') {
+          console.log('cookie null');
+          data =  'true';
+          this.cookieService.set('1s_ltc', data);
+
+        }
+
+        console.log('va a entrar');
+        if (data === 'true') {
+          console.log('entra');
+          this.introJS.setOptions({
+            steps: [
+              {
+                element: '#step1',
+                intro: 'Ingrese aquí el número de documeto del estudiante!',
+                position: 'bottom'
+              }, {
+                element: '#step2',
+                intro: 'Verifique aquí las actividades asignadas!',
+                position: 'bottom'
+              },
+              {
+                element: '#step2',
+                intro: 'Verifique en Estado si la actividad ya fue entregada al docente!',
+                position: 'bottom'
+              }
+            ],
+            showProgress: true
+          }).start();
+        }
+        resolved(data);
+      }, 100)
+    });
+  }
+
+
+  loadTutorial() {
+
+    this.validateCookies().then((response) => {
+      console.log(response);
+      this.cookieService.set('1s_ltc', 'false');
+    });
+
+
+  }
+
 }

@@ -12,7 +12,7 @@
       <form [style.width.%]="100" class="search-form">
         <mat-form-field [style.width.%]="95" class="search-full-width">
           <mat-label>Document number</mat-label>
-          <input type="number" name="search" matInput placeholder="100000000">
+          <input id="step1" type="number" name="search" matInput placeholder="123456">
           <button *ngIf="mode.colSize === 1 || false" matSuffix mat-fab color="primary" aria-label="Search">
             <mat-icon matSuffix>search</mat-icon>
           </button>
@@ -26,7 +26,7 @@
 </mat-card>
 
 
-<app-search-activities [document]="search"></app-search-activities>
+<app-search-activities [document]="search" id="step2" ></app-search-activities>
 
 <mat-card>
   <mat-grid-list [cols]="4" rowHeight="4:1">

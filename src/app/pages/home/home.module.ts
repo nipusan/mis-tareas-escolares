@@ -5,6 +5,7 @@ import { CommonModule } from '@angular/common';
 import { HomeRoutingModule } from './home-routing.module';
 import { HomeComponent } from './home.component';
 import { MaterialModule } from '@app/material.module';
+import { CookieService } from 'ngx-cookie-service';
 
 
 @NgModule({
@@ -13,6 +14,9 @@ import { MaterialModule } from '@app/material.module';
     CommonModule,
     HomeRoutingModule,
     MaterialModule
+  ],
+  providers: [
+    CookieService
   ]
 })
 export class HomeModule { }
