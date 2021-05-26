@@ -7,5 +7,5 @@ export interface Course {
   startDate: Date;
   endDate: Date;
   user: User | null;
-  state: boolean;
+  state: boolean | string;
 }

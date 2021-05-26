@@ -1,8 +1,8 @@
 import { Component, ViewChild, AfterViewInit, OnInit, OnDestroy } from '@angular/core';
-import { ModalComponent } from './../components/modal/modal.component';
+import { ModalCourseComponent } from './../components/modal-course/modal-course.component';
 import { takeUntil } from 'rxjs/operators';
 import { MatDialog } from '@angular/material/dialog';
-import { UsersService } from './../services/users.service';
+import { CoursesService } from './../services/courses.service';
 import { Subject } from 'rxjs';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatSort } from '@angular/material/sort';
@@ -14,17 +14,17 @@ import { MatSort } from '@angular/material/sort';
 })
 export class CoursesComponent implements AfterViewInit, OnInit, OnDestroy {
 
-  displayedColumns: string[] = ['id', 'role', 'username', 'names', 'surnames', 'documentType', 'document', 'actions'];
+  displayedColumns: string[] = ['name', 'code', 'startDate', 'endDate', 'state', 'actions'];
   dataSource = new MatTableDataSource();
 
   private destroy$ = new Subject<any>();
 
   @ViewChild(MatSort) sort: MatSort;
-  constructor(private userSvc: UsersService, private dialog: MatDialog) { }
+  constructor(private courseSvc: CoursesService, private dialog: MatDialog) { }
 
   ngOnInit(): void {
-    this.userSvc.getAll().subscribe((users) => {
-      this.dataSource.data = users;
+    this.courseSvc.getMyCourses().subscribe((courses) => {
+      this.dataSource.data = courses;
       console.log(this.dataSource.data);
     });
   }
@@ -32,34 +32,37 @@ export class CoursesComponent implements AfterViewInit, OnInit, OnDestroy {
   ngAfterViewInit(): void {
     this.dataSource.sort = this.sort;
   }
-  onDelete(userId: number): void {
-    if (window.confirm('Do you really want remove this user')) {
-      this.userSvc
-        .delete(userId)
+  onDelete(courseId: number): void {
+    if (window.confirm('Do you really want remove this course')) {
+      this.courseSvc
+        .delete(courseId)
         .pipe(takeUntil(this.destroy$))
         .subscribe((res) => {
           window.alert(res);
-          // Update result after deleting the user.
-          this.userSvc.getAll().subscribe((users) => {
-            this.dataSource.data = users;
+          // Update result after deleting the course.
+          this.courseSvc.getMyCourses().subscribe((courses) => {
+            this.dataSource.data = courses;
           });
         });
     }
   }
 
-  onOpenModal(user = {}): void {
-    console.log('User->', user);
-    let dialogRef = this.dialog.open(ModalComponent, {
+  onOpenModal(course = {}): void {
+    console.log('Course->', course);
+    let dialogRef = this.dialog.open(ModalCourseComponent, {
       height: '400px',
       width: '600px',
       hasBackdrop: false,
-      data: { title: 'New user', user },
+      data: { title: 'New course', course },
     });
     dialogRef.afterClosed().subscribe(result => {
       console.log(`Dialog result: ${result}`, typeof result);
-      // Update result after adding new user.
-      this.userSvc.getAll().subscribe((users) => {
-        this.dataSource.data = users;
+      // Update result after adding new course.
+      this.courseSvc.getMyCourses().subscribe((courses) => {
+
+        console.log('deberia actualiozar los cursos');
+        console.log(courses);
+        this.dataSource.data = courses;
       });
     });
   }

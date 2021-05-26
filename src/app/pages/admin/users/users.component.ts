@@ -12,7 +12,7 @@ import {
 import { MatTableDataSource } from '@angular/material/table';
 import { MatSort } from '@angular/material/sort';
 import { MatDialog } from '@angular/material/dialog';
-import { ModalComponent } from './../components/modal/modal.component';
+import { ModalUserComponent } from './../components/modal-user/modal-user.component';
 import { Subject } from 'rxjs';
 @Component({
   selector: 'app-users',
@@ -55,7 +55,7 @@ export class UsersComponent implements AfterViewInit, OnInit, OnDestroy {
 
   onOpenModal(user = {}): void {
     console.log('User->', user);
-    let dialogRef = this.dialog.open(ModalComponent, {
+    let dialogRef = this.dialog.open(ModalUserComponent, {
       height: '400px',
       width: '600px',
       hasBackdrop: false,
