@@ -9,6 +9,11 @@
     <span class="nav-link">Users</span>
   </a>
 
+  <a mat-list-item routerLink="/admin/courses"  *ngIf="isAdmin === 'admin' || isAdmin === 'docente'">
+    <mat-icon>bookmarks</mat-icon>
+    <span class="nav-link">Courses</span>
+  </a>
+
   <a mat-list-item (click)="onExit()">
     <mat-icon>exit_to_app</mat-icon>
     <span class="nav-link">Exit</span>

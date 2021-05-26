@@ -7,6 +7,7 @@ import { AdminComponent } from './admin.component';
 import { ModalComponent } from './components/modal/modal.component';
 import { MaterialModule } from '@app/material.module';
 
+
 @NgModule({
   declarations: [AdminComponent, ModalComponent],
   imports: [
