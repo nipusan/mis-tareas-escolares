@@ -53,7 +53,7 @@
       </mat-form-field>
 
       <mat-form-field class="full-width-input">
-        <mat-label>Document Type </mat-label>
+        <mat-label>Tipo Documento </mat-label>
         <mat-select formControlName="documentType">
           <mat-option value="0">CC</mat-option>
           <mat-option value="1">TT</mat-option>
@@ -76,7 +76,7 @@
       </mat-form-field>
 
       <mat-form-field class="full-width-input">
-        <mat-label>Select </mat-label>
+        <mat-label>Seleccionar </mat-label>
         <mat-select formControlName="role">
           <mat-option value="suscriptor">Suscriptor</mat-option>
           <mat-option *ngIf="isAdmin === 'admin'" value="admin">Admin</mat-option>
@@ -90,7 +90,7 @@
   </div>
 </mat-dialog-content>
 <mat-dialog-actions align="end">
-  <button mat-button mat-dialog-close>Cancel</button>
+  <button mat-button mat-dialog-close>Cancelar</button>
   <button
     mat-raised-button
     [mat-dialog-close]="true"
@@ -99,6 +99,6 @@
     ckdFocusInitial
     [disabled]="!userForm.baseForm.valid"
   >
-    Save
+    Guardar
   </button>
 </mat-dialog-actions>
