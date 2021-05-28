@@ -73,7 +73,9 @@ export class UserController {
     const userRepository = getRepository(Users);
     // Try get user
     try {
-      user = await userRepository.findOneOrFail(id);
+      user = await userRepository.createQueryBuilder("Users")
+      .addSelect("Users.password")
+      .where("Users.id = :id", { id: id }).getOne();
       user.username = username;
       user.role = role;
       user.names = names;

@@ -1,0 +1,88 @@
+
+
+<mat-card class="example-card" *ngIf="studentData !== null">
+  <mat-card-header>
+    <div mat-card-avatar class="example-header-image"><span class="material-icons">
+      perm_identity
+      </span></div>
+    <mat-card-title>{{ studentData.names }} {{ studentData.surnames }}</mat-card-title>
+    <mat-card-subtitle>Estudiante</mat-card-subtitle>
+  </mat-card-header>
+</mat-card>
+
+
+<table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8" *ngIf="studentData !== null">
+  <!--
+  <ng-container matColumnDef="id">
+    <th id="userId" mat-header-cell *matHeaderCellDef mat-sort-header>No.</th>
+    <td mat-cell *matCellDef="let element">{{ element.id }}</td>
+  </ng-container>
+-->
+  <!-- Name Column -->
+  <ng-container matColumnDef="name" minWidth="400px">
+    <th id="userName" mat-header-cell *matHeaderCellDef mat-sort-header>Nombre</th>
+    <td mat-cell *matCellDef="let element">{{ element.activity.name }}</td>
+  </ng-container>
+
+  <!-- Content Column -->
+  <ng-container matColumnDef="content">
+    <th id="userContent" mat-header-cell *matHeaderCellDef mat-sort-header>Contenido</th>
+    <td mat-cell *matCellDef="let element">{{ element.activity.content }}</td>
+  </ng-container>
+
+  <!-- startDate Column -->
+  <ng-container matColumnDef="startDate">
+    <th id="userStartDate" mat-header-cell *matHeaderCellDef mat-sort-header>Fecha Inicio</th>
+    <td mat-cell *matCellDef="let element">{{ element.activity.startDate }}</td>
+  </ng-container>
+
+  <!-- endDate Column -->
+  <ng-container matColumnDef="endDate">
+    <th id="userEndDate" mat-header-cell *matHeaderCellDef mat-sort-header>Fecha Fin</th>
+    <td mat-cell *matCellDef="let element">{{ element.activity.endDate }}</td>
+  </ng-container>
+
+  <!-- course Column -->
+  <ng-container matColumnDef="course">
+    <th id="userEndDate" mat-header-cell *matHeaderCellDef mat-sort-header>Curso</th>
+    <td mat-cell *matCellDef="let element">{{ element.activity.course.name }}</td>
+  </ng-container>
+
+  <!-- observation Column -->
+  <ng-container matColumnDef="observation">
+    <th id="userObservation" mat-header-cell *matHeaderCellDef mat-sort-header>Observación</th>
+    <td mat-cell *matCellDef="let element">{{ element.observation }}</td>
+  </ng-container>
+
+  <!-- state Column -->
+  <ng-container matColumnDef="state" id="step3">
+    <th id="userState" mat-header-cell *matHeaderCellDef mat-sort-header>Estado</th>
+    <td mat-cell *matCellDef="let element">
+      <label for="userState" class="label success" *ngIf="element.state">Entregado</label>
+      <label for="userState" class="label danger" *ngIf="!element.state">Pendiente</label>
+    </td>
+  </ng-container>
+
+  <!-- document Column -->
+  <ng-container matColumnDef="document">
+    <th id="userDocument" mat-header-cell *matHeaderCellDef mat-sort-header>Documento</th>
+    <td mat-cell *matCellDef="let element">{{ element.document }}</td>
+  </ng-container>
+
+  <ng-container matColumnDef="actions">
+    <th id="userActions" mat-header-cell *matHeaderCellDef mat-sort-header>Acción</th>
+    <td mat-cell *matCellDef="let element">
+      <div class="table-button-row">
+        <button mat-flat-button color="accent" (click)="onOpenModal(element)">
+          Editar
+        </button>
+        <button mat-flat-button color="warn" (click)="onDelete(element.id)">
+          Remover
+        </button>
+      </div>
+    </td>
+  </ng-container>
+
+  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+</table>

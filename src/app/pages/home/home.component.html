@@ -1,6 +1,6 @@
 <mat-card>
   <h1 *ngIf="(authSvc.user$ | async) as user">
-    Welcome, {{ user.username || 'User' }}.
+    Bienvenido, {{ user.names || 'User' }}.
   </h1>
 </mat-card>
 
@@ -11,15 +11,30 @@
     <mat-grid-tile [colspan]="1" [rowspan]="1" [style.background]="'white'">
       <form [style.width.%]="100" class="search-form">
         <mat-form-field [style.width.%]="95" class="search-full-width">
-          <mat-label>Número documento</mat-label>
-          <input type="number" matInput placeholder="100000000">
+          <mat-label>Número Documento</mat-label>
+          <input id="step1" type="number" name="search" matInput placeholder="123456">
           <button *ngIf="mode.colSize === 1 || false" matSuffix mat-fab color="primary" aria-label="Search">
             <mat-icon matSuffix>search</mat-icon>
           </button>
         </mat-form-field>
       </form>
     </mat-grid-tile>
-    <mat-grid-tile [colspan]="1" [rowspan]="1" [style.background]="'white'"></mat-grid-tile>
+
+  </mat-grid-list>
+
+
+</mat-card>
+
+
+<app-search-activities [document]="search" id="step2" ></app-search-activities>
+
+<mat-card>
+  <mat-grid-list [cols]="4" rowHeight="4:1">
+
+    <mat-grid-tile [colspan]="4" [rowspan]="4" [style.background]="'white'">
+
+    </mat-grid-tile>
+    <mat-grid-tile [colspan]="1" [rowspan]="2" [style.background]="'white'"></mat-grid-tile>
   </mat-grid-list>
 
 

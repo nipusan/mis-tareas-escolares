@@ -3,41 +3,47 @@ import { HttpClient } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { Injectable } from '@angular/core';
 import { environment } from '@env/environment';
-import { User } from '@app/shared/models/user.interface';
+import { Course } from '@app/shared/models/course.interface';
 
 @Injectable({
   providedIn: 'root',
 })
-export class UsersService {
+export class CoursesService {
   constructor(private http: HttpClient) {}
 
-  getAll(): Observable<User[]> {
+  getAll(): Observable<Course[]> {
     return this.http
-      .get<User[]>(`${environment.API_URL}/users`)
+      .get<Course[]>(`${environment.API_URL}/courses`)
       .pipe(catchError(this.handlerError));
   }
 
-  getById(userId: number): Observable<User> {
+  getMyCourses(): Observable<Course[]> {
     return this.http
-      .get<any>(`${environment.API_URL}/users/${userId}`)
+      .get<Course[]>(`${environment.API_URL}/courses/my-courses`)
       .pipe(catchError(this.handlerError));
   }
 
-  new(user: User): Observable<User> {
+  getById(userId: number): Observable<Course> {
     return this.http
-      .post<User>(`${environment.API_URL}/users`, user)
+      .get<any>(`${environment.API_URL}/courses/${userId}`)
       .pipe(catchError(this.handlerError));
   }
 
-  update(userId: number, user: User): Observable<User> {
+  new(user: Course): Observable<Course> {
     return this.http
-      .patch<User>(`${environment.API_URL}/users/${userId}`, user)
+      .post<Course>(`${environment.API_URL}/courses`, user)
+      .pipe(catchError(this.handlerError));
+  }
+
+  update(userId: number, user: Course): Observable<Course> {
+    return this.http
+      .patch<Course>(`${environment.API_URL}/courses/${userId}`, user)
       .pipe(catchError(this.handlerError));
   }
 
   delete(userId: number): Observable<{}> {
     return this.http
-      .delete<User>(`${environment.API_URL}/users/${userId}`)
+      .delete<Course>(`${environment.API_URL}/courses/${userId}`)
       .pipe(catchError(this.handlerError));
   }
 
@@ -46,6 +52,7 @@ export class UsersService {
     if (error) {
       errorMessage = `Error ${error.message}`;
     }
+    //window.alert(errorMessage);
     console.info(errorMessage);
     return throwError(errorMessage);
   }

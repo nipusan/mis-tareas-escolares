@@ -4,9 +4,14 @@
     <span class="nav-link">Dashboard</span>
   </a>
 
-  <a mat-list-item routerLink="/admin/users">
+  <a mat-list-item routerLink="/admin/users"  *ngIf="isAdmin === 'admin'">
     <mat-icon>people</mat-icon>
     <span class="nav-link">Users</span>
+  </a>
+
+  <a mat-list-item routerLink="/admin/courses"  *ngIf="isAdmin === 'admin' || isAdmin === 'docente'">
+    <mat-icon>bookmarks</mat-icon>
+    <span class="nav-link">Courses</span>
   </a>
 
   <a mat-list-item (click)="onExit()">

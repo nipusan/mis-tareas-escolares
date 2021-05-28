@@ -10,10 +10,12 @@ import { MatCardModule } from '@angular/material/card';
 import { MatTableModule } from '@angular/material/table';
 import { MatSortModule } from '@angular/material/sort';
 import { MatDialogModule } from '@angular/material/dialog';
-import { MatOptionModule } from '@angular/material/core';
+import { MatNativeDateModule, MatOptionModule } from '@angular/material/core';
 import { MatSelectModule } from '@angular/material/select';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatGridListModule } from '@angular/material/grid-list';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 const myModules = [
   MatToolbarModule,
@@ -30,7 +32,10 @@ const myModules = [
   MatOptionModule,
   MatSelectModule,
   MatFormFieldModule,
-  MatGridListModule
+  MatGridListModule,
+  MatDatepickerModule,
+  MatNativeDateModule,
+  MatSnackBarModule
 ];
 
 @NgModule({

@@ -1,0 +1,74 @@
+<h2 mat-dialog-title>{{ data?.title }}</h2>
+<mat-dialog-content>
+  <div class="modal-form">
+    <form [formGroup]="courseForm.baseForm">
+
+      <mat-form-field class="full-width-input">
+        <input
+          formControlName="name"
+          matInput
+          placeholder="Name"
+          required
+        />
+        <mat-error *ngIf="checkField('name')">
+          {{ courseForm.errorMessage }}
+        </mat-error>
+      </mat-form-field>
+
+
+      <mat-form-field class="full-width-input" appearance="fill">
+
+        <mat-label>Fecha Inicio</mat-label>
+        <input matInput [matDatepicker]="picker1" formControlName="startDate" required>
+        <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+        <mat-datepicker #picker1></mat-datepicker>
+
+        <mat-error *ngIf="checkField('startDate')">
+          {{ courseForm.errorMessage }}
+        </mat-error>
+
+      </mat-form-field>
+
+
+
+      <mat-form-field class="full-width-input" appearance="fill">
+
+        <mat-label>Fecha Fin</mat-label>
+        <input matInput [matDatepicker]="picker2" formControlName="endDate" required>
+        <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+        <mat-datepicker #picker2></mat-datepicker>
+
+        <mat-error *ngIf="checkField('endDate')">
+          {{ courseForm.errorMessage }}
+        </mat-error>
+
+      </mat-form-field>
+
+
+
+      <mat-form-field class="full-width-input">
+        <mat-label>Estado </mat-label>
+        <mat-select formControlName="state">
+          <mat-option value="false">Desactivar</mat-option>
+          <mat-option value="true">Activar</mat-option>
+        </mat-select>
+        <mat-error *ngIf="checkField('state')">
+          {{ courseForm.errorMessage }}
+        </mat-error>
+      </mat-form-field>
+
+    </form>
+  </div>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-button mat-dialog-close>Cancelar</button>
+  <button
+    mat-raised-button
+    [mat-dialog-close]="true"
+    color="primary"
+    (click)="onSave()"
+    ckdFocusInitial
+    [disabled]="!courseForm.baseForm.valid">
+    Guardar
+  </button>
+</mat-dialog-actions>

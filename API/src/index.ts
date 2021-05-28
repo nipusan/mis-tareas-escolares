@@ -17,7 +17,7 @@ createConnection()
 
     app.use(express.json());
     // Routes
-    app.use('/', routes);
+    app.use(routes);
 
     // start express server
     app.listen(PORT, () => console.log(`Server running on port ${PORT}`));

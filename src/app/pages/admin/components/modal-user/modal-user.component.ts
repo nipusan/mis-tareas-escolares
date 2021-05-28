@@ -1,8 +1,8 @@
-import { AuthService } from './../../../auth/auth.service';
+import { AuthService } from '../../../auth/auth.service';
 import { UserResponse } from '@shared/models/user.interface';
 import { takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs';
-import { UsersService } from './../../services/users.service';
+import { UsersService } from '../../services/users.service';
 import { Component, Inject, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 
@@ -14,10 +14,10 @@ enum Action {
 
 @Component({
   selector: 'app-modal',
-  templateUrl: './modal.component.html',
-  styleUrls: ['./modal.component.scss'],
+  templateUrl: './modal-user.component.html',
+  styleUrls: ['./modal-user.component.scss'],
 })
-export class ModalComponent implements OnInit {
+export class ModalUserComponent implements OnInit {
 
   isAdmin = null;
   isLogged = false;

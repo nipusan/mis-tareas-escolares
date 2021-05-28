@@ -4,7 +4,7 @@
       <mat-icon>menu</mat-icon>
     </button>
   </ng-container>
-  <span>Mis Tareas</span>
+  <span><a routerLink="/">Mis Tareas</a></span>
   <span class="spacer"></span>
   <a *ngIf="!isLogged; else viewLogout" mat-button routerLink="/login">Login</a>
   <a *ngIf="isAdmin === 'admin' || isAdmin === 'docente'" mat-button routerLink="/admin">Admin</a>

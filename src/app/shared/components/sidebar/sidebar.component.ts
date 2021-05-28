@@ -22,8 +22,13 @@ export class SidebarComponent implements OnInit {
     this.authSvc.user$
       .pipe(takeUntil(this.destroy$))
       .subscribe((user: UserResponse) => {
-        this.isLogged = true;
-        this.isAdmin = user?.role;
+        if (user) {
+          this.isLogged = true;
+          this.isAdmin = user?.role;
+        } else {
+          this.isLogged = false;
+          this.isAdmin = null;
+        }
       });
   }
 

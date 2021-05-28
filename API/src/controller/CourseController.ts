@@ -5,6 +5,7 @@ import { validate } from 'class-validator';
 import * as jwt from 'jsonwebtoken';
 import { Messages as sms } from '../utils/message';
 import { Entity } from '../utils/entity';
+import RandomString from '../utils/ramdom-string';
 
 export class CourseController {
 
@@ -94,14 +95,37 @@ export class CourseController {
    * @returns
    */
   static new = async (req: Request, res: Response) => {
-    const { code, name, startDate, endDate, state } = req.body;
+
+    const courseRepository = getRepository(Course);
+
+    const { name, startDate, endDate, state } = req.body;
 
     const course = new Course();
+
+    const random = new RandomString();
+    let code = random.randomString(8, '#aA');
+    console.log('generando ramdom string');
+    console.log(code);
+
+    const validateCourse = courseRepository.createQueryBuilder('course')
+      .where("course.code = :code", { code: code }).getMany();
+
+    if (validateCourse !== null) {
+      console.log(validateCourse);
+      code = random.randomString(8, '#aA');
+      console.log('generando ramdom string');
+      console.log(code);
+    }
+
     course.code = code;
     course.name = name;
     course.startDate = startDate;
     course.endDate = endDate;
-    course.state = state;
+    if (state === 'true' || state === '1') {
+      course.state = true;
+    } else {
+      course.state = false;
+    }
 
     //  ValidateUserToken
     const token = <string>req.headers['auth'];
@@ -117,7 +141,7 @@ export class CourseController {
       return res.status(400).json(errors);
     }
 
-    const courseRepository = getRepository(Course);
+
     try {
       await courseRepository.save(course);
     } catch (e) {
@@ -140,17 +164,24 @@ export class CourseController {
   static edit = async (req: Request, res: Response) => {
     let course;
     const { id } = req.params;
-    const { code, name, startDate, endDate, state } = req.body;
+    const { name, startDate, endDate, state } = req.body;
     const courseRepository = getRepository(Course);
 
     // Try get course
     try {
       course = await courseRepository.findOneOrFail(id);
-      course.code = code;
       course.name = name;
       course.startDate = startDate;
       course.endDate = endDate;
-      course.state = state;
+      if (state === 'true' || state === '1') {
+        course.state = true;
+      } else {
+        course.state = false;
+      }
+
+      console.log('darosa desde backend:');
+      console.log(course);
+
 
       //  ValidateUserToken
       const token = <string>req.headers['auth'];
@@ -205,7 +236,6 @@ export class CourseController {
     courseRepository.delete(id);
     res.status(201).json({ message: sms.DELETED(Entity.COURSE) });
   };
-
 }
 
 export default CourseController;

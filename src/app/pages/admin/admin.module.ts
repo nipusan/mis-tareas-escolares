@@ -4,11 +4,13 @@ import { CommonModule } from '@angular/common';
 
 import { AdminRoutingModule } from './admin-routing.module';
 import { AdminComponent } from './admin.component';
-import { ModalComponent } from './components/modal/modal.component';
+import { ModalUserComponent } from './components/modal-user/modal-user.component';
 import { MaterialModule } from '@app/material.module';
+import { ModalCourseComponent } from './components/modal-course/modal-course.component';
+
 
 @NgModule({
-  declarations: [AdminComponent, ModalComponent],
+  declarations: [AdminComponent, ModalUserComponent, ModalCourseComponent],
   imports: [
     CommonModule,
     AdminRoutingModule,

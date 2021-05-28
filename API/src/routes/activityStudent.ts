@@ -15,10 +15,10 @@ router.get('/students-by-activity/:id', [checkJwt, checkRole(['admin','docente']
 router.get('/activities-by-student/:id', [checkJwt, checkRole(['admin','docente'])], ActivityStudentController.getActivitiesByStudent);
 
 // Get Activities By Student Document
-router.get('/activities-by-student-document/:document', [checkJwt, checkRole(['admin','docente'])], ActivityStudentController.getActivitiesByStudentDocument);
+router.get('/activities-by-student-document/:document', ActivityStudentController.getActivitiesByStudentDocument);
 
 // Get Activities By Student Document
-router.get('/activities-by-student-document/:documentType/:document', [checkJwt, checkRole(['admin','docente'])], ActivityStudentController.getActivitiesByStudentDocuments);
+router.get('/activities-by-student-document/:documentType/:document', ActivityStudentController.getActivitiesByStudentDocuments);
 
 // Get one user
 router.get('/:id', [checkJwt, checkRole(['admin','docente'])], ActivityStudentController.getById);

@@ -19,12 +19,15 @@ export class ActivityStudentController {
    * @param res Response
    */
   static getAll = async (req: Request, res: Response) => {
+    console.log('init getAll');
     const studentCourseRepository = getRepository(ActivityStudent);
     let data;
     try {
       data = await studentCourseRepository.createQueryBuilder('ActivityStudent')
         .leftJoinAndSelect("ActivityStudent.student", "student")
-        .leftJoinAndSelect("ActivityStudent.activity", "activity").getMany();
+        .leftJoinAndSelect("ActivityStudent.activity", "activity")
+        .leftJoinAndSelect("activity.course", "course")
+        .getMany();
 
       console.log(data);
 
@@ -107,7 +110,8 @@ export class ActivityStudentController {
       const data = await studentCourseRepository
         .createQueryBuilder("ActivityStudent")
         //.leftJoinAndSelect("ActivityStudent.student", "student")
-        .leftJoinAndSelect("ActivityStudent.activity", "users")
+        .leftJoinAndSelect("ActivityStudent.activity", "activity")
+        .leftJoinAndSelect("activity.course", "course")
         .where("ActivityStudent.student = :id", { id: id }).getMany();
       res.send(data);
     } catch (e) {
@@ -136,7 +140,8 @@ export class ActivityStudentController {
       const data = await studentCourseRepository
         .createQueryBuilder("ActivityStudent")
         .leftJoinAndSelect("ActivityStudent.student", "student")
-        .leftJoinAndSelect("ActivityStudent.activity", "users")
+        .leftJoinAndSelect("ActivityStudent.activity", "activity")
+        .leftJoinAndSelect("activity.course", "course")
         .where("student.document = :document", { document: document })
         .getMany();
       res.send(data);
@@ -166,7 +171,8 @@ export class ActivityStudentController {
       const data = await studentCourseRepository
         .createQueryBuilder("ActivityStudent")
         .leftJoinAndSelect("ActivityStudent.student", "student")
-        .leftJoinAndSelect("ActivityStudent.activity", "users")
+        .leftJoinAndSelect("ActivityStudent.activity", "activity")
+        .leftJoinAndSelect("activity.course", "course")
         .where("student.documentType = :documentType", { documentType: documentType })
         .andWhere("student.document = :document", { document: document })
         .getMany();
@@ -186,11 +192,13 @@ export class ActivityStudentController {
    * @returns
    */
   static new = async (req: Request, res: Response) => {
-    const { student, activity } = req.body;
+    const { student, activity, observation, state } = req.body;
 
     const item = new ActivityStudent();
     item.student = student;
     item.activity = activity;
+    item.observation = observation;
+    item.state = state;
 
     const validationOpt = { validationError: { target: false, value: false } };
     const errors = await validate(item, validationOpt);
@@ -233,7 +241,7 @@ export class ActivityStudentController {
   static edit = async (req: Request, res: Response) => {
     let item;
     const { id } = req.params;
-    const { student, activity } = req.body;
+    const { student, activity, observation, state } = req.body;
     const studentCourseRepository = getRepository(ActivityStudent);
 
     // Try get studentCourse
@@ -241,6 +249,8 @@ export class ActivityStudentController {
       item = await studentCourseRepository.findOneOrFail(id);
       item.student = student;
       item.activity = activity;
+      item.observation = observation;
+      item.state = state;
 
     } catch (e) {
       return res.status(404).json({ message: sms.NOT_FOUND(Entity.ACTIVITY_STUDENT) });

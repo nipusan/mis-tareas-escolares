@@ -1,0 +1,29 @@
+table {
+  width: 98%;
+  margin: 0 auto;
+  margin-top: 1rem;
+}
+
+th.mat-sort-header-sorted {
+  color: black;
+}
+
+.table-button-row button {
+  margin: 12px;
+}
+
+.btn-new {
+  width: 20%;
+}
+
+.label {
+  color: white;
+  padding: 8px;
+}
+
+.success {background-color: #04AA6D;} /* Green */
+.info {background-color: #2196F3;} /* Blue */
+.warning {background-color: #ff9800;} /* Orange */
+.danger {background-color: #f44336;} /* Red */
+.other {background-color: #e7e7e7; color: black;} /* Gray */
+
