@@ -1,6 +1,6 @@
 <mat-card>
   <h1 *ngIf="(authSvc.user$ | async) as user">
-    Welcome, {{ user.names || 'User' }}.
+    Bienvenido, {{ user.names || 'User' }}.
   </h1>
 </mat-card>
 
