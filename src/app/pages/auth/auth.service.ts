@@ -1,3 +1,4 @@
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { Injectable } from '@angular/core';
@@ -16,7 +17,7 @@ const helper = new JwtHelperService();
 export class AuthService {
   private user = new BehaviorSubject<UserResponse>(null);
 
-  constructor(private http: HttpClient, private router: Router) {
+  constructor(private http: HttpClient, private router: Router, private snackBar: MatSnackBar) {
     this.checkToken();
   }
   get user$(): Observable<UserResponse> {
@@ -69,7 +70,8 @@ export class AuthService {
     if (err) {
       errorMessage = `Error: code ${err.message}`;
     }
-    window.alert(errorMessage);
+    //window.alert(errorMessage);
+    this.snackBar.open('Error:', 'Credenciales incorrectas', { duration: 5000, verticalPosition: 'top' });
     return throwError(errorMessage);
   }
 }

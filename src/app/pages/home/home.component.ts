@@ -8,6 +8,7 @@ import { filter, map } from 'rxjs/operators';
 import { ActivatedRoute } from '@angular/router';
 
 import * as introJs from 'intro.js/intro.js';
+import { Util } from '@app/shared/utils/util';
 
 export interface ModeType {
   colSize: number;
@@ -47,6 +48,15 @@ export class HomeComponent implements OnInit, OnDestroy {
     console.log('Called Constructor');
     this.route.queryParams.subscribe(params => {
       this.search = params['search'];
+      if (!Util.check(this.search)) {
+        console.log('get cookie document')
+        const document = this.cookieService.get('1s_nde');
+        console.log(document);
+        if (Util.check(document)) {
+          this.search = Number.parseInt(document);
+        }
+      }
+      console.log(this.search);
     });
 
     breakpointObserver.observe([
@@ -93,7 +103,7 @@ export class HomeComponent implements OnInit, OnDestroy {
           this.mode = this.modes[3];
           this.colSize = this.mode.colSize;
         }
-        this.loadTutorial();
+        this.loadCookies();
       });
   }
 
@@ -108,7 +118,7 @@ export class HomeComponent implements OnInit, OnDestroy {
         let data = this.cookieService.get('1s_ltc');
         if (data === '') {
           console.log('cookie null');
-          data =  'true';
+          data = 'true';
           this.cookieService.set('1s_ltc', data);
 
         }
@@ -142,11 +152,12 @@ export class HomeComponent implements OnInit, OnDestroy {
   }
 
 
-  loadTutorial() {
+  loadCookies() {
 
     this.validateCookies().then((response) => {
       console.log(response);
       this.cookieService.set('1s_ltc', 'false');
+      this.cookieService.set('1s_nde', this.search.toString());
     });
 
 

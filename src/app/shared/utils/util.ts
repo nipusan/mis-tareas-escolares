@@ -12,7 +12,7 @@ export class Util {
    * @param x data to validate
    * @returns boolean
    */
-  check(x: any): boolean {
+  static check(x: any): boolean {
 
     // null data check
     if (x == null) {
@@ -22,6 +22,8 @@ export class Util {
 
       // undefined data check
     } else if (typeof x === 'undefined') {
+      return false;
+    } else if (x === '') {
       return false;
     } else {
       return true;
@@ -34,7 +36,7 @@ export class Util {
    * @param x Object to validate
    * @returns boolean
    */
-  checkObject(x: any): boolean {
+  static checkObject(x: any): boolean {
 
     // null data check
     if (!this.check(x)) {
@@ -55,7 +57,7 @@ export class Util {
    * @param fields Object fields to validate
    * @returns boolean
    */
-  checkObjectAndItsFields(x: any, fields: string[]): boolean {
+  static checkObjectAndItsFields(x: any, fields: string[]): boolean {
 
     // validate if it has properties
     if (Object.keys(x).length === 0) {
@@ -76,7 +78,7 @@ export class Util {
    * @param x List to validate
    * @returns boolean
    */
-  checkList(x: any): boolean {
+  static checkList(x: any): boolean {
 
     // check that the list is not empty
     if (x.length === 0) {
@@ -93,7 +95,7 @@ export class Util {
    * @param x Data to validate
    * @returns  boolean
    */
-  checkAndLog(x: any): boolean {
+  static checkAndLog(x: any): boolean {
     const r = this.check(x);
     if (r) {
       console.log('validation was true');
@@ -113,7 +115,7 @@ export class Util {
    * @param y Data to validate
    * @returns number
    */
-  checkAndReturnANumber(x: any, y: any): number {
+  static checkAndReturnANumber(x: any, y: any): number {
     if (this.check(x) && this.check(y)) {
       return 0;
     } else if (this.check(x)) {

@@ -52,7 +52,8 @@ export class CoursesService {
     if (error) {
       errorMessage = `Error ${error.message}`;
     }
-    window.alert(errorMessage);
+    //window.alert(errorMessage);
+    console.info(errorMessage);
     return throwError(errorMessage);
   }
 }
